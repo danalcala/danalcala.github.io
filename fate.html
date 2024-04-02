@@ -8,6 +8,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Escape Fate - Daniel Alcala - Portfolio</title>
+		<link href="/favicon.ico" rel="icon" type="image/x-icon?">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		<link rel="stylesheet" href="assets/css/main.css">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
@@ -19,54 +20,62 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1>Generic</h1>
-						<p>Ipsum dolor sit amet nullam</p>
+						<h1>Escape Fate</h1>
+						<p>3D First Person Horror</p>
 					</header>
 
 				<!-- Main -->
 					<div id="main">
-
 						<!-- Content -->
 							<section id="content" class="main">
-								<span class="image main"><img src="images/pic04.jpg" alt="" /></span>
-								<h2>Magna feugiat lorem</h2>
-								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis fames ac ante ipsum primis in faucibus.</p>
-								<p>Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Consequat leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit enim turpis lorem ipsum dolor sit amet feugiat. Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet est velit quis lorem.</p>
-								<h2>Tempus veroeros</h2>
-								<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
+								<span class="image main"><img src="images/fatebanner.png" alt="" /></span>
+								<ul class="actions special back">
+									<li><a href="https://drive.google.com/drive/folders/1TPniB6ymMosEoHJUCnGhN9F9pYB44iNq" class="button primary">Link To Download Game</a></li>
+									<li><a href="https://github.com/CalderonDani/FateStudios-HorrorGame" class="button">Link To GitHub Repo</a></li>
+								</ul>
+								<p>Escape Fate (a.k.a Project Fate) was group project, where I was the assistant project manager, that had a scope and deadline. Finished within 5 months, the project was completed in a playable state, with many of the essentials and goals we had set in mind. For this game, we discussed different elements to a horror game that makes them emotion inducing. We set some goals in mind for the game, including but not limited to, having dimly lit or dark corridors, slower movement, and a flashlight as to have the player feel limited with their visibility. We also wanted to have the level be designed in a way that made sense for the theme, so we looked at other media and real-life examples of houses that gave that sense of horror. From that research, we designed the level to have two floors with many rooms, that way it felt like the enemy chasing after you could be in any place. After discussing goals, we got to writing everything in our Software Project Management Plan (SPMP), a Software Requirement Specification (SRS), and starting a Gantt Chart.</p>
+								<ul class="actions special">
+									<li><a href="assets/misc/Fate Studios - SPMP.pdf" target="_blank" class="button primary">SPMP (PDF)</a></li>
+									<li><a href="assets/misc/Fate Studios - SRS.pdf" target="_blank" class="button primary">SRS (PDF)</a></li>
+								</ul>
+								<p></p>
+								<p>Throughout the development of the game, I was consulted with by both my team members and the project manager, discussing ideas, decision-making, and goals for us to set down. We had set up weekly meetings for us to catch up, share new developments, and talk about further plans. To help the project manager, I created the Gantt chart as to track what was done each week, as well as the goals for us to complete. The first goal we had in mind was to make our first prototype, where we set out to make the initial version of the game, that although not entirely polished, had many of the core mechanics in it. This version had the initial UI/UX, the movement scripts, the collecting notes mechanic, and other systems to make the game functional.</p>
+								<div class="box alt">
+									<div class="row gtr-uniform">
+										<div class="col-12"><span class="image fit"><img src="images/ganttchartfate.png" alt=""></span></div>
+									</div>
+								</div>
+								<p></p>
+								<h2>AI Implementation</h2>
+								<span class="image left"><img src="images/aifate.png" alt=""></span><p>One of the big things that make a horror game truly terrifying is having an enemy that keeps the player constantly in fear. The development of the enemy took a lot of time and consideration. We decided on doing a fairly simple way of keeping the AI cover as much ground as possible as well as reacting to the player. The AI would simply follow a set point of coordinates on the map, going in a constant loop around the play area. The AI also had three different colliders, a sight detection (green collider), sound detection (blue collider), and line of sight detection (yellow collider). When the character would enter the sight detection, the AI would immediately start running for the player. If the player were to hide behind a wall or hide in a cabinet while in their sight detection collider, the monster would turn away and continue their path. If the player was to be within the line of sight, the monster would still chase them down, even if they tried to hide. This is where the sprint mechanic comes into play, as to get far away enough from them to hide. The final detection, the sound, would trigger the monster to instantly start to look for the player, following the footsteps the player makes. It will do so until the player is seen, or a time threshold of silence was met, then it would return to the original path. Although the monster would sometimes go in the wrong direction or not exactly know where the player was, especially when we introduced the second floor, the AI behaved almost exactly how we wanted it to.</p>
+								<p></p>
+								<h2>Ending Thoughts</h2>
+								<p>This project taught me two big important things, team coordination and software engineering tools and practices. Throughout the development, me and the project manager were constantly discussing ideas and ways to solve problems with the team. If a team member had an issue developing something, we would come in and help or figure out alternatives. Anything we discussed or changed within the game would be noted in some form or another, and to help track what each of were doing, we used Asana. This was an instrumental tool for us as it let all the team members know exactly what goals to accomplish, what had been done or was still in progress, and for us to help others on a certain issue they were having. Another important tool, GitHub, was used during development as to help keep version control and different branches for the members of the team to work on. Although we didn’t use it to the fullest potential, we still were able to manage each other through it. Tools like these helped us get good track time for the project and let us finish the main goals within the scope. To keep track of these, I would often update our Gantt chart, keep the SRS and SPMP updated to reflect all changes within the project. Overall, this project was a game I was proud of as I helped in many aspects of the development, whether it was helping other’s understand Unreal Engine’s blueprint system, helping discover assets and how to implement them, or designing different parts of the game. I was also proud of the way I documented the development process. The SRS, the SPMP, and Gantt chart are all documents that I have a good understanding of. Although we didn’t utilize it too much, we followed an Agile project management plan as that worked best for the team and the project at hand, using the scrum framework to help us as it worked best for our fixed-length project. While the scrum minutes and objectives were documented, the length and detail of them were a bit sporadic. The progress made on this project was instrumental into me understanding many of the processes of being a software engineer and game developer.</p>	
+								<p></p>
 							</section>
-
+							<video width="960" controls><source src="assets/misc/fategameplay.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+							<ul class="actions special back">
+								<li><a href="https://orbellion.com" class="button primary">Go Back</a></li>
+							</ul>
 					</div>
 
 				<!-- Footer -->
-					<footer id="footer">
-						<section>
-							<h2>Aliquam sed mauris</h2>
-							<p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit, vitae tincidunt odio.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Learn More</a></li>
-							</ul>
-						</section>
-						<section>
-							<h2>Etiam feugiat</h2>
-							<dl class="alt">
-								<dt>Address</dt>
-								<dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
-								<dt>Phone</dt>
-								<dd>(000) 000-0000 x 0000</dd>
-								<dt>Email</dt>
-								<dd><a href="#">information@untitled.tld</a></dd>
-							</dl>
-							<ul class="icons">
-								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
-							</ul>
-						</section>
-						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+				<footer id="footer">
+					<section>
+						<h2>Contact Info and Links</h2>
+						<ul>
+							<li>Redlands, CA 92374 &bull; USA</li>
+							<li>(951) 258-3236</li>
+							<li><a href="mailto:dalcala.work@gmail.com">dalcala.work@gmail.com</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://twitter.com/Orbellion" target="_blank" rel="noopener noreferrer" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+							<li><a href="https://github.com/danalcala" target="_blank" rel="noopener noreferrer" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/dalcala7612/" target="_blank" rel="noopener noreferrer" class="icon brands fa-linkedin alt"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+					<p class="copyright">&copy; Orbellion / Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+				</footer>
 
 			</div>
 
