@@ -8,6 +8,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Other Projects - Daniel Alcala - Portfolio</title>
+		<link href="/favicon.ico" rel="icon" type="image/x-icon?">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		<link rel="stylesheet" href="assets/css/main.css">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
@@ -19,54 +20,228 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1>Generic</h1>
-						<p>Ipsum dolor sit amet nullam</p>
+						<h1>Other Projects</h1>
+						<h2>Side-projects and more</h2>
 					</header>
+					
+					<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="#project1" class="active">Tourney Lad</a></li>
+							<li><a href="#project2">Decked Out</a></li>
+							<li><a href="#project3">Shell with Filesystem</a></li>
+						</ul>
+					</nav>
 
 				<!-- Main -->
 					<div id="main">
 
 						<!-- Content -->
-							<section id="content" class="main">
-								<span class="image main"><img src="images/pic04.jpg" alt="" /></span>
-								<h2>Magna feugiat lorem</h2>
-								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis fames ac ante ipsum primis in faucibus.</p>
-								<p>Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Consequat leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit enim turpis lorem ipsum dolor sit amet feugiat. Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet est velit quis lorem.</p>
-								<h2>Tempus veroeros</h2>
-								<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
+							<section id="project1" class="main">
+								<h1>Tourney Lad</h1>
+								<h2>Tournament ladder leaderboard to allow organizers submit, rank, and edit players.</h2>
+								<div class="box alt">
+									<div class="row gtr-uniform">
+										<div class="col-12"><span class="image fit"><img src="images/tourneylad1.png" alt=""></span></div>
+										<div class="col-6"><span class="image fit"><img src="images/tourneylad2.png" alt=""></span></div>
+										<div class="col-6"><span class="image fit"><img src="images/tourneylad3.png" alt=""></span></div>
+										<div class="col-12"><span class="image fit"><img src="images/tourneylad4.png" alt=""></span></div>
+									</div>
+								</div>
+								<ul class="action special back">
+									<li><a href="https://github.com/danalcala/Tourney-Lad" class="button">Link to GitHub Repo</a></li>
+								</ul>
+								<p>A web application to store names, teams, and stats of players in any sort of competitive ranked ladder system, Tourney Lad was built using the ASP.NET Core web framework which utilized C#, HTML, and CSS. The front end uses ASP.NET Core Razor pages, which was used due to the fact it has many similarities to a Model-View-Controller architecture. The backend uses C# in combination with Razor pages to deliver the responsive UI for organizers to sort all players by. The project first started off with creating the user account system. Luckily, ASP.NET Core has a built-in authentication system, where it can develop models, setup Razor pages, and create migrations to a database to allow for it all to be done easily. This also allows for two factor authentication, email and password recovery, and data deletion. After implementing the pre-set authentication system, I then got to developing and designing a way to connect the framework to Microsoft SQL Server, as this was the best SQL database for this project. To do this, I developed the create action in the CRUD operations first, in which the Razor page would gather input from the frontend of the page into a model, deliver that model to the controller of the page, create an SQL query, and execute the command.</p>
+								<h3>Create.cshtml</h2>
+								<pre><code>&lt;div class="row mb-3"&gt;
+	&lt;label class="col-sm-3 col-form-label">Player Name&lt;/label>
+	&lt;div class="col-sm-6">
+		&lt;input type="text" class="form-control" name="playername" value="@Model.PlayerInfo.PlayerName" />
+	&lt;/div>
+&lt;/div>
+&lt;div class="row mb-3">
+&lt;label class="col-sm-3 col-form-label">Team Name&lt;/label>
+	&lt;div class="col-sm-6">
+		&lt;input type="text" class="form-control" name="teamname" value="@Model.PlayerInfo.TeamName" />
+	&lt;/div>
+&lt;/div></code></pre>
+								<h3>Create.cshtml.cs</h3>
+								<pre><code>String sqlCmd = "INSERT INTO AuthSystemDB.dbo.Players (Id, PlayerName, TeamName, Wins, Losses, Avatar, Creator) VALUES (@id, @playername, @teamname, @wins, @losses, @avatar, @creator);";
+using (SqlCommand command = new SqlCommand(sqlCmd, connection))
+{
+	command.Parameters.AddWithValue("@id", Guid.NewGuid().ToString("N"));
+	command.Parameters.AddWithValue("@playername", PlayerInfo.PlayerName);
+	command.Parameters.AddWithValue("@teamname", PlayerInfo.TeamName);
+	command.Parameters.AddWithValue("@wins", PlayerInfo.Wins);
+	command.Parameters.AddWithValue("@losses", PlayerInfo.Losses);
+	command.Parameters.AddWithValue("@avatar", PlayerInfo.Avatar);
+	command.Parameters.AddWithValue("@creator", currentUserID);
+				
+	command.ExecuteNonQuery();
+}</code></pre>
+								<p>After developing the create, I decided to do the read, update, and delete operations all in one by creating a table that displays all the players in the tournament, along with their stats. Although if the user is signed in and authenticated, which would be only for tournament organizers, they can both edit and delete each individual player. These operations can only be accessed by those who have an account, as it would redirect to the login page if the user was not logged in. The edit options show all the current entries for that player and allows the user to change them easily. Overall, the website allows for users to effortlessly input players and have them show up in the ladder. Although the page layout and CSS may be a bit simple, for this prototype of a web application, it works extremely well, functions exactly how it should, and is developed with ease and security in mind.</p>
 							</section>
+
+							<section id="project2" class="main">
+								<h1>Decked Out</h1>
+								<h2>OpenGL developed card matching game.</h2>
+								<div class="box alt">
+									<div class="row gtr-uniform">
+										<div class="col-12"><span class="image fit"><img src="images/deckedout1.png" alt=""></span></div>
+									</div>
+								</div>
+								<ul class="action special back">
+									<li><a href="https://github.com/danalcala/DeckedOut" class="button">Link to GitHub Repo</a></li>
+								</ul>
+								<p>A matching card game utilizing the OpenGL graphics library, Decked Out, was a simple project to understand and develop with a more barebones graphics library. Using it meant I had to put more understanding into all the small details of a user interfacing with a game. I knew right of the start I wanted the game to be heavily inspired from the likes of Bejeweled. I designed the game to be in a grid of eight by eight, where the player would be able to move a card one space over at a time, in a vertical or horizontal direction. If the player moved a card piece into a row or column of matching cards, then they would gain points. The spots opened by the matched pieces would then be replaced with the card above it. The player would try to aim to get the highest score possible within the time limit. There are some differences between the original game and this one, where players are not punished for moving cards in a direction that does not have a match, that piece instead stays there. The main challenge is having a timer to stop the player from playing anymore.</p>
+								<pre><code>//Checks for matches and marks them for removal
+void match(void)
+{
+    bool matchedGrid[8][8] = { false };
+
+    //Horizontal check
+    for(int y = 0; y < 8; ++y)
+        for (int x = 0; x < (8 - 2); ++x)
+        {
+            int currentType = grid[x][y].kind;
+            if (currentType == -1)
+                continue;
+
+            if (grid[x + 1][y].kind == currentType && grid[x + 2][y].kind == currentType)
+            {
+                matchedGrid[x][y] = matchedGrid[x + 1][y] = matchedGrid[x + 2][y] = true;
+                score++;
+            }
+
+        }
+    //Vertical check
+    for (int x = 0; x < 8; ++x)
+        for (int y = 0; y < (8 - 2); ++y)
+        {
+            int currentType = grid[x][y].kind;
+            if (currentType == -1)
+                continue;
+
+            if (grid[x][y+1].kind == currentType && grid[x][y+2].kind == currentType)
+            {
+                matchedGrid[x][y] = matchedGrid[x][y + 1] = matchedGrid[x][y + 2] = true;
+                score++;
+
+            }
+        }
+    
+    //Mark for removal
+    for(int y = 0; y < 8; ++y)
+        for (int x = 0; x < 8; ++x)
+        {
+            if (matchedGrid[x][y])
+            {
+                grid[x][y].kind = -1;
+            }
+        }
+    return;
+}</code></pre>
+								<p>Developing for this game was interesting as it required a bit more mathematics, structures, and manipulation of two-dimensional arrays all while developing it alongside the OpenGL library. I first designed a struct as store the card type of each element in the 2-D array. I then started to develop the graphics of each of the cards, with 6 different shapes and colors, each requiring the screen space of each grid piece and calculating the shapes off the dimensions of those spaces. I then developed for the other functions, such as the swap function, which swapped cards. After this swap function, several other functions would happen, which includes the match function, which checks for any matches in any of the columns or rows, remove those cards, and update the score counter. After matches have been found, the cards would then be filled in with random cards. The match function would be run again as to check for any cascading pieces, where there is automatically a match from the random pieces. These would be added to the score as well. Finally, the score would be output as well as the drawing of all the shapes again. All these functions would be executed under an idle function, running every second. Overall, this code was well executed and had minimal bugs, with the only exception being the clock for the timer, as it was based on the code run time, which differs from machine to machine, where a delta time function would’ve eliminated such timing errors.</p>
+							</section>
+
+							<section id="project3" class="main">
+								<h1>Shell with Filesystem</h1>
+								<h2>C++ command line with implementation of a FAT filesystem.</h2>
+								<ul class="action special back">
+									<li><a href="https://github.com/danalcala/linux-shell" class="button">Link to GitHub Repo</a></li>
+								</ul>
+								<p>A simple Linux-based C++ shell, this program could read, copy, search, and add new files based on a free list dynamic memory allocation. These commands and their functions are all within several header and source files. The first functions that were developed was for the shell, and it included reading the commands of the user, including any option flags, and sending them to the shell. These commands include ls(), add(), del(), and copy(). After these functions were implemented, it was then to working on the disk, which would be able to handle all the disk block management of the FAT and getting info about each block of data such as block size and the number of blocks. The next program, the block program, dealt with relaying information of each block to the other programs. The last crucial program, filesys, was implemented to allow the program to communicate with the text files that served as the storage location. It created the filesystems, built and initialized them, as well as reading and deleting any information in them. It also dealt with synching the filesystem to the disk. With these programs implemented, the next steps included dealing with the shell commands itself as well as implementing index search functionality based on some given data.</p>
+								<h3>filesys.cpp</h3>
+								<pre><code>//This function allocates blocks on the disk by updating the freelist of blocks.
+int Filesys::addblock(string file, string block)
+{
+    int allocate;
+
+    for (int i = 0; i < filename.size(); i++)
+    {
+
+        if (filename[i] == file)
+        {
+            allocate = fat[0];
+
+            fat[0] = fat[fat[0]];
+            fat[allocate] = 0;
+
+            firstblock[i] = 0;
+            return 1;
+        }
+
+        else
+        {
+            return 0;
+        }
+    }
+
+    // - check if file exists
+    // - allocate block (allocate = fat[0])
+    //      - fat[0] = fat[fat[0]] - updates the free list
+    //      - fat[allocate] = 0 - allocated block is the last block
+    // - update blocklist for the file
+    //      - firstblock = 0
+    //      - firstblock != 0
+    return 0;
+}</code></pre>
+								<p>The final pieces of code for this project included developing the table search functions, called table in the program, where it would search a text file using indexes to get faster results. The index, in this case, was the given data text file for each event. The index program would build a table based on that index, allowing for a key to be searched from the table, resulting in faster search times than manually going through each record. It would also have a stop word so that if the key reached the end of the table, it would stop the search there. Finally, to put everything together and for it all to run, I developed the main program file, which kept a perpetual loop for commands to be inserted as well as having the ability to have a quit command. This project taught me a lot about the basics of shells, how filesystems work, as well as more experience with C++ data structures, file input and output. It also taught me how to work with different data structures, as well as B-trees and linked lists, as the file structure implemented here followed a linked list.</p>
+								<h3>table.cpp</h3>
+								<pre><code>//Searches the table of indexes for the specfic key, and returns -1 if record not found.
+int Table::indexSearch(string key)
+{
+    string buffer;
+    string buffer2;
+    int b = getfirstblock(indexfile);
+    //error checking is in order here
+    while (b != 0)
+    {
+        readblock(indexfile, b, buffer);
+        buffer2 += buffer;
+        b = nextblock(indexfile, b);
+    }
+
+    istringstream istream;
+    istream.str(buffer2);
+    string ikey;
+    int iblock;
+    istream >> key >> iblock;
+    while (ikey != "kangaroo")
+    {
+        if(ikey == key)
+        {
+            return iblock;
+        }
+        istream >> ikey >> iblock;
+    }
+    return -1;
+}</code></pre>
+							</section>
+
+							<ul class="actions special back">
+								<li><a href="https://orbellion.com" class="button primary">Go Back</a></li>
+							</ul>
 
 					</div>
 
 				<!-- Footer -->
-					<footer id="footer">
-						<section>
-							<h2>Aliquam sed mauris</h2>
-							<p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit, vitae tincidunt odio.</p>
-							<ul class="actions">
-								<li><a href="#" class="button">Learn More</a></li>
-							</ul>
-						</section>
-						<section>
-							<h2>Etiam feugiat</h2>
-							<dl class="alt">
-								<dt>Address</dt>
-								<dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
-								<dt>Phone</dt>
-								<dd>(000) 000-0000 x 0000</dd>
-								<dt>Email</dt>
-								<dd><a href="#">information@untitled.tld</a></dd>
-							</dl>
-							<ul class="icons">
-								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
-							</ul>
-						</section>
-						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+				<footer id="footer">
+					<section>
+						<h2>Contact Info and Links</h2>
+						<ul>
+							<li>Redlands, CA 92374 &bull; USA</li>
+							<li>(951) 258-3236</li>
+							<li><a href="mailto:dalcala.work@gmail.com">dalcala.work@gmail.com</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://twitter.com/Orbellion" target="_blank" rel="noopener noreferrer" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+							<li><a href="https://github.com/danalcala" target="_blank" rel="noopener noreferrer" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/dalcala7612/" target="_blank" rel="noopener noreferrer" class="icon brands fa-linkedin alt"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+					<p class="copyright">&copy; Orbellion / Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+				</footer>
 
 			</div>
 

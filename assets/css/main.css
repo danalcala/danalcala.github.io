@@ -2513,6 +2513,7 @@ input, select, textarea {
 			justify-content: center;
 			width: 100%;
 			margin-left: 0;
+			padding-top: 1em;
 		}
 
 		ul.actions.special.back{
